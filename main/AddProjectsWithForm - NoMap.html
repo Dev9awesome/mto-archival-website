@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minnesota Traffic Observatory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .project {
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .project:hover {
+            background-color: #f0f0f0;
+        }
+        .details {
+            display: none;
+            padding: 20px;
+            border-top: 1px solid #ccc;
+        }
+        .details p {
+            margin-top: 0;
+        }
+        .metadata li {
+            list-style: none;
+            margin-bottom: 5px;
+        }
+        .metadata li:before {
+            content: "•";
+            margin-right: 5px;
+        }
+        .form-container {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input, .form-container textarea, .form-container select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minnesota Traffic Observatory</h1>
+    <button onclick="showForm()">Add New Project</button>
+    
+    <div id="formPage" class="hidden">
+        <div class="form-container">
+            <h2>Add New Project</h2>
+            <form id="projectForm">
+                <label for="name">Project Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+                
+                <label for="videoExcerpt">Video Excerpt:</label>
+                <textarea id="videoExcerpt" name="videoExcerpt"></textarea>
+                
+                <label for="videoType">Video Type:</label>
+                <select id="videoType" name="videoType">
+                    <option value="">None</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="googleDrive">Google Drive</option>
+                </select>
+                
+                <label for="videoLink">Video Link:</label>
+                <input type="text" id="videoLink" name="videoLink">
+                
+                <label for="dataDownloadLink">Data Download Link:</label>
+                <input type="text" id="dataDownloadLink" name="dataDownloadLink" required>
+                
+                <label for="purpose">Purpose:</label>
+                <textarea id="purpose" name="purpose" required></textarea>
+                
+                <label for="researchPaperLink">Research Paper Link:</label>
+                <input type="text" id="researchPaperLink" name="researchPaperLink" required>
+                
+                <label for="resolution">Resolution:</label>
+                <input type="text" id="resolution" name="resolution" required>
+                
+                <label for="dates">Dates:</label>
+                <input type="text" id="dates" name="dates" required>
+                
+                <label for="size">Size:</label>
+                <input type="text" id="size" name="size" required>
+                
+                <label for="hardware">Hardware:</label>
+                <input type="text" id="hardware" name="hardware" required>
+                
+                <button type="button" onclick="addProject()">Add Project</button>
+                <button type="button" onclick="showProjects()">Back to Projects</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="projectsPage">
+        <div id="projects"></div>
+    </div>
+
+    <script>
+        let projects = [
+            {
+                name: "Project 1",
+                location: "123 Main St, Minneapolis, MN",
+                videoExcerpt: "Sample video excerpt",
+                videoType: "youtube",
+                videoLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                dataDownloadLink: "https://example.com/data1",
+                purpose: "To study traffic patterns",
+                researchPaperLink: "https://example.com/paper1",
+                metadata: {
+                    resolution: "1080p",
+                    dates: "January 2022",
+                    size: "10 GB",
+                    hardware: "Traffic cameras"
+                }
+            },
+            {
+                name: "Project 2",
+                location: "456 Elm St, St. Paul, MN",
+                videoExcerpt: "",
+                videoType: "",
+                videoLink: "",
+                dataDownloadLink: "https://example.com/data2",
+                purpose: "To analyze traffic flow",
+                researchPaperLink: "https://example.com/paper2",
+                metadata: {
+                    resolution: "720p",
+                    dates: "February 2022",
+                    size: "5 GB",
+                    hardware: "Traffic sensors"
+                }
+            }
+        ];
+
+        const projectsContainer = document.getElementById('projects');
+        const formPage = document.getElementById('formPage');
+        const projectsPage = document.getElementById('projectsPage');
+
+        function toggleDetails(index) {
+            const details = document.getElementById(`details-${index}`);
+            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function renderProjects() {
+            projectsContainer.innerHTML = '';
+            projects.forEach((project, index) => {
+                const projectDiv = document.createElement('div');
+                projectDiv.className = 'project';
+                projectDiv.textContent = project.name;
+                projectDiv.onclick = () => toggleDetails(index);
+
+                const detailsDiv = document.createElement('div');
+                detailsDiv.id = `details-${index}`;
+                detailsDiv.className = 'details';
+                detailsDiv.innerHTML = `
+                    <p><strong>Location:</strong> ${project.location}</p>
+                    ${project.videoLink ? `
+                        <div class="video-container">
+                            ${project.videoType === 'youtube' ? 
+                                `<iframe width="560" height="315" src="${project.videoLink}" frameborder="0" allowfullscreen></iframe>` : 
+                                project.videoType === 'googleDrive' ?
+                                    `<iframe src="${project.videoLink}"></iframe>` :
+                                    ''
+                            }
+                        </div>` : ''}
+                    <p><strong>Data Download:</strong> <a href="${project.dataDownloadLink}">Download</a></p>
+                    <p><strong>Purpose:</strong> ${project.purpose}</p>
+                    <p><strong>Research Paper:</strong> <a href="${project.researchPaperLink}">Link</a></p>
+                    <p><strong>Metadata:</strong></p>
+                    <ul class="metadata">
+                        <li>Resolution: ${project.metadata.resolution}</li>
+                        <li>Dates: ${project.metadata.dates}</li>
+                        <li>Size: ${project.metadata.size}</li>
+                        <li>Hardware: ${project.metadata.hardware}</li>
+                    </ul>
+                `;
+
+                projectsContainer.appendChild(projectDiv);
+                projectsContainer.appendChild(detailsDiv);
+            });
+        }
+
+        function addProject() {
+            const form = document.getElementById('projectForm');
+            const newProject = {
+                name: form.name.value,
+                location: form.location.value,
+                videoExcerpt: form.videoExcerpt.value,
+                videoType: form.videoType.value,
+                videoLink: form.videoLink.value,
+                dataDownloadLink: form.dataDownloadLink.value,
+                purpose: form.purpose.value,
+                researchPaperLink: form.researchPaperLink.value,
+                metadata: {
+                    resolution: form.resolution.value,
+                    dates: form.dates.value,
+                    size: form.size.value,
+                    hardware: form.hardware.value
+                }
+            };
+            projects.push(newProject);
+            form.reset();
+            showProjects();
+        }
+
+        function showForm() {
+            formPage.classList.remove('hidden');
+            projectsPage.classList.add('hidden');
+        }
+
+        function showProjects() {
+            formPage.classList.add('hidden');
+            projectsPage.classList.remove('hidden');
+            renderProjects();
+        }
+
+        renderProjects();
+    </script>
+</body>
+</html>
