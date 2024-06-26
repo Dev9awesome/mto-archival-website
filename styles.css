@@ -10,7 +10,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 16px 24px;
-    background-color: #f8f8f8;
+    background-color: #003f6b;
   }
   
   header div:first-child {
@@ -31,7 +31,7 @@ body {
   
   .header-links a {
     text-decoration: none;
-    color: #000;
+    color: #adb0dff3;
   }
   
   header button {
@@ -66,8 +66,9 @@ body {
     justify-content: space-between;
     padding: 16px;
     margin-bottom: 24px;
-    background-color: #f8f8f8;
+    background-color: #003f6b;
     border-radius: 8px;
+    color: blanchedalmond;
   }
   
   .project-card img {
