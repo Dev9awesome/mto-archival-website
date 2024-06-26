@@ -123,44 +123,21 @@
     </div>
 
     <script>
-        let projects = [
-            {
-                name: "Project 1",
-                location: "123 Main St, Minneapolis, MN",
-                videoExcerpt: "Sample video excerpt",
-                videoType: "youtube",
-                videoLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                dataDownloadLink: "https://example.com/data1",
-                purpose: "To study traffic patterns",
-                researchPaperLink: "https://example.com/paper1",
-                metadata: {
-                    resolution: "1080p",
-                    dates: "January 2022",
-                    size: "10 GB",
-                    hardware: "Traffic cameras"
-                }
-            },
-            {
-                name: "Project 2",
-                location: "456 Elm St, St. Paul, MN",
-                videoExcerpt: "",
-                videoType: "",
-                videoLink: "",
-                dataDownloadLink: "https://example.com/data2",
-                purpose: "To analyze traffic flow",
-                researchPaperLink: "https://example.com/paper2",
-                metadata: {
-                    resolution: "720p",
-                    dates: "February 2022",
-                    size: "5 GB",
-                    hardware: "Traffic sensors"
-                }
-            }
-        ];
+        let projects = [];
 
         const projectsContainer = document.getElementById('projects');
         const formPage = document.getElementById('formPage');
         const projectsPage = document.getElementById('projectsPage');
+
+        async function fetchProjects() {
+            const projectFiles = ['project1.json', 'project2.json']; // List all your project JSON files here
+            for (const file of projectFiles) {
+                const response = await fetch(`projects/${file}`);
+                const project = await response.json();
+                projects.push(project);
+            }
+            renderProjects();
+        }
 
         function toggleDetails(index) {
             const details = document.getElementById(`details-${index}`);
@@ -240,7 +217,7 @@
             renderProjects();
         }
 
-        renderProjects();
+        fetchProjects();
     </script>
 </body>
 </html>
