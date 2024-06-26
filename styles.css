@@ -1,0 +1,163 @@
+body {
+    font-family: "Public Sans", "Noto Sans", sans-serif;
+  }
+  
+  .group/design-root {
+    background-color: #f8fafc;
+  }
+  
+  .layout-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-grow: 1;
+  }
+  
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #e6edf4;
+    background-color: #003670;
+  }
+  
+  header h2 {
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: #0c141d;
+  }
+  
+  .header-links a {
+    margin-right: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #0c141d;
+    text-decoration: none;
+  }
+  
+  header button {
+    background-color: #d1e9d1;
+    color: #f8fafc;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+  }
+  
+  button.secondary {
+    background-color: #e6edf4;
+    color: #0c141d;
+  }
+  
+  .header-avatar {
+    background-image: url("https://cdn.usegalileo.ai/sdxl10/26329d74-7a57-47ef-9cbc-0fdaa1dfdf42.png");
+    width: 2.5rem;
+    height: 2.5rem;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+  }
+  
+  .project-card {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    margin-bottom: 1rem;
+  }
+  
+  .project-card h2 {
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: #0c141d;
+    margin-bottom: 0.5rem;
+  }
+  
+  .project-card p {
+    font-size: 0.875rem;
+    color: #4571a1;
+    margin-bottom: 1rem;
+  }
+  
+  .project-card button {
+    background-color: #e6edf4;
+    color: #0c141d;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .project-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #e6edf4;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex-grow: 1;
+    padding: 0.5rem;
+    color: #0c141d;
+  }
+  
+  .search-bar svg {
+    margin-right: 0.5rem;
+  }
+  
+  .project-list {
+    background-color: #f8fafc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .project-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .project-item img {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.5rem;
+  }
+  
+  .project-item .info {
+    flex-grow: 1;
+    margin-left: 0.5rem;
+  }
+  
+  .project-item .info p {
+    margin: 0;
+    color: #4571a1;
+  }
+  
+  .project-item .info p.title {
+    color: #0c141d;
+  }
+  
+  .project-item .actions svg {
+    cursor: pointer;
+  }
+  
