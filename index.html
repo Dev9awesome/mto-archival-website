@@ -143,10 +143,7 @@
       projectsContainer.innerHTML = '';
       projects.forEach((project, index) => {
         const projectDiv = document.createElement('div');
-        const projectList = document.createElement('li');
-        li.className = 'project-search-list';
-        li.textContent = project.name;
-        projectList.appendChild(li);
+        
         projectDiv.className = 'project-item';
         projectDiv.innerHTML = `
           <img src="${project.image}" alt="${project.name}">
@@ -189,6 +186,11 @@
         `;
         projectsContainer.appendChild(projectDiv);
         projectsContainer.appendChild(detailsDiv);
+
+        const projectList = document.createElement('li');
+        li.className = 'project-search-list';
+        li.textContent = project.name;
+        projectList.appendChild(li);
       });
     }
 
