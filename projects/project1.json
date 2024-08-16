@@ -4,7 +4,7 @@
     "videoExcerpt": "Sample video excerpt",
     "videoType": "youtube",
     "videoLink": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    "dataDownloadLink": "https://app.globus.org/file-manager?origin_id=5b8172bb-7ae0-4e3f-b68e-91fc7550c114&origin_path=%2F ",
+    "dataDownloadLink": "https://example.com/data1",
     "purpose": "To study traffic patterns",
     "researchPaperLink": "https://example.com/paper1",
     "author": "John Hourdos",
