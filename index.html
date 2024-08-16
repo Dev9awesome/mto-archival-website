@@ -59,7 +59,12 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
           <path d="M232.49,215,184.91,167.42a84,84,0,1,0-17.49,17.49L215,232.49a12,12,0,0,0,17-17ZM48,112A64,64,0,1,1,112,176,64.07,64.07,0,0,1,48,112Z"></path>
         </svg>
-        <input type="text" placeholder="Search Projects">
+        <input 
+          id="searchbar"
+          onkeyup="search_projects()"
+          type="text" name="search" 
+          placeholder="Search Projects"
+        >
       </div>
       <div id="projects"></div>
     </div>
@@ -138,6 +143,10 @@
       projectsContainer.innerHTML = '';
       projects.forEach((project, index) => {
         const projectDiv = document.createElement('div');
+        const projectList = document.createElement('li');
+        li.className = 'projects';
+        li.textContent = project.name;
+        projectList.appendChild(li);
         projectDiv.className = 'project-item';
         projectDiv.innerHTML = `
           <img src="${project.image}" alt="${project.name}">
@@ -218,6 +227,23 @@
     }
 
     fetchProjects();
+
+
+    function search_projects(){
+      let input = document.getElementById('searchbar').value
+      input = input.toLowerCase();
+      let x = document.getElementsByClassName('projects');
+
+      for (i = 0; i < x.length; i++) {
+        if (!x[i].innerHTML.toLowerCase().includes(input)) {
+          x[i].style.display = "none";
+        }
+        else {
+          x[i].style.display = "list-item";
+        }
+      }
+    }
+
   </script>
 </body>
 </html>
