@@ -143,6 +143,10 @@
       projectsContainer.innerHTML = '';
       projects.forEach((project, index) => {
         const projectDiv = document.createElement('div');
+        const projectList = document.createElement('li');
+        li.className = 'project-search-list';
+        li.textContent = project.name;
+        projectList.appendChild(li);
         projectDiv.className = 'project-item';
         projectDiv.innerHTML = `
           <img src="${project.image}" alt="${project.name}">
@@ -185,11 +189,6 @@
         `;
         projectsContainer.appendChild(projectDiv);
         projectsContainer.appendChild(detailsDiv);
-
-        const projectList = document.createElement('li');
-        li.className = 'projects';
-        li.textContent = project.name;
-        projectList.appendChild(li);
       });
     }
 
@@ -233,7 +232,7 @@
     function search_projects(){
       let input = document.getElementById('searchbar').value
       input = input.toLowerCase();
-      let x = document.getElementsByClassName('projects');
+      let x = document.getElementsByClassName('project-search-list');
 
       for (i = 0; i < x.length; i++) {
         if (!x[i].innerHTML.toLowerCase().includes(input)) {
