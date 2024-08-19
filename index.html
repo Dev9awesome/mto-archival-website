@@ -137,63 +137,66 @@
     }
 
     function toggleDetails(index) {
-      const details = document.getElementById(`details-${index}`);
-      details.style.display = details.style.display === 'block' ? 'none' : 'block';
-    }
+            const detailsDiv = document.getElementById(`details-${index}`);
+            if (detailsDiv.style.display === 'block') {
+                detailsDiv.style.display = 'none';
+            } else {
+                detailsDiv.style.display = 'block';
+            }
+        }
 
-    function renderProjects() {
-      projectsContainer.innerHTML = '';
-      projects.forEach((project, index) => {
-        const projectDiv = document.createElement('div');
-        
-        projectDiv.className = 'project-item';
-        projectDiv.innerHTML = `
-          <img src="${project.image}" alt="${project.name}">
-          <div class="info">
-            <p class="title">${project.name}</p>
-            <p>by ${project.author}</p>
-          </div>
-          <div class="actions">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
-            </svg>
-          </div>
-        `;
-        projectDiv.onclick = () => toggleDetails(index);
+        function renderProjects(filteredProjects = projects) {
+            projectsContainer.innerHTML = '';
+            filteredProjects.forEach((project, index) => {
+                const projectDiv = document.createElement('div');
+                projectDiv.className = 'project-item';
+                projectDiv.innerHTML = `
+                    <img src="${project.image}" alt="${project.name}">
+                    <div class="info">
+                        <p class="title">${project.name}</p>
+                        <p>by ${project.author}</p>
+                    </div>
+                    <div class="actions">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
+                        </svg>
+                    </div>
+                `;
+                projectDiv.onclick = () => toggleDetails(index);
 
-        const detailsDiv = document.createElement('div');
-        detailsDiv.id = `details-${index}`;
-        detailsDiv.className = 'details';
-        detailsDiv.innerHTML = `
-          <p><strong>Location:</strong> ${project.location}</p>
-          ${project.videoLink ? `
-            <div class="video-container">
-              ${project.videoType === 'youtube' ? 
-                `<iframe width="560" height="315" src="${project.videoLink}" frameborder="0" allowfullscreen></iframe>` : 
-                project.videoType === 'googleDrive' ?
-                  `<iframe src="${project.videoLink}"></iframe>` :
-                  ''
-              }
-            </div>` : ''}
-          <p><strong>Data Download:</strong> <a href="${project.dataDownloadLink}" target="_blank">Download </a></p>
-          <p><strong>Purpose:</strong> ${project.purpose}</p>
-          <p><strong>Research Paper:</strong> <a href="${project.researchPaperLink}" target="_blank">Link</a></p>
-          <p><strong>Metadata:</strong></p>
-          <ul class="metadata">
-            <li>Resolution: ${project.metadata.resolution}</li>
-            <li>Dates: ${project.metadata.dates}</li>
-            <li>Size: ${project.metadata.size}</li>
-            <li>Hardware: ${project.metadata.hardware}</li>
-          </ul>
-        `;
-        projectsContainer.appendChild(projectDiv);
-        projectsContainer.appendChild(detailsDiv);
-
-      });
-    }
+                const detailsDiv = document.createElement('div');
+                detailsDiv.id = `details-${index}`;
+                detailsDiv.className = 'details';
+                detailsDiv.innerHTML = `
+                    <p><strong>Location:</strong> ${project.location}</p>
+                    ${project.videoLink ? `
+                        <div class="video-container">
+                            ${project.videoType === 'youtube' ? 
+                                `<iframe width="560" height="315" src="${project.videoLink}" frameborder="0" allowfullscreen></iframe>` : 
+                                project.videoType === 'googleDrive' ?
+                                    `<iframe src="${project.videoLink}"></iframe>` :
+                                    ''
+                            }
+                        </div>` : ''}
+                    <p><strong>Data Download:</strong> <a href="${project.dataDownloadLink}" target="_blank">Download</a></p>
+                    <p><strong>Purpose:</strong> ${project.purpose}</p>
+                    <p><strong>Research Paper:</strong> <a href="${project.researchPaperLink}" target="_blank">Link</a></p>
+                    <p><strong>Metadata:</strong></p>
+                    <ul class="metadata">
+                        <li>Resolution: ${project.metadata.resolution}</li>
+                        <li>Dates: ${project.metadata.dates}</li>
+                        <li>Size: ${project.metadata.size}</li>
+                        <li>Hardware: ${project.metadata.hardware}</li>
+                    </ul>
+                `;
+                projectsContainer.appendChild(projectDiv);
+                projectsContainer.appendChild(detailsDiv);
+            });
+        }
 
     function populateSearchList(){
       const listElement = document.getElementById("search-list");
+      listElement.innerHTML='';
       projects.forEach((project, index) => {
         const listItem = document.createElement('li');
         listItem.className = 'searchable-projects';
@@ -239,20 +242,13 @@
     fetchProjects();
 
 
-    function search_projects(){
-      let input = document.getElementById('searchbar').value
-      input = input.toLowerCase();
-      let x = document.getElementsByClassName('searchable-projects');
-
-      for (i = 0; i < x.length; i++) {
-        if (!x[i].innerHTML.toLowerCase().includes(input)) {
-          x[i].style.display = "none";
+    function searchProjects() {
+            const searchInput = document.getElementById('searchbar').value.toLowerCase();
+            const filteredProjects = projects.filter(project => 
+                project.name.toLowerCase().includes(searchInput)
+            );
+            renderProjects(filteredProjects);
         }
-        else {
-          x[i].style.display = "list-item";
-        }
-      }
-    }
 
   </script>
 </body>
