@@ -67,6 +67,7 @@
         >
       </div>
       <div id="projects"></div>
+      <ul id="search-list"></ul>
     </div>
   </div>
 
@@ -132,6 +133,7 @@
         projects.push(project);
       }
       renderProjects();
+      populateSearchList();
     }
 
     function toggleDetails(index) {
@@ -187,10 +189,16 @@
         projectsContainer.appendChild(projectDiv);
         projectsContainer.appendChild(detailsDiv);
 
-        const projectList = document.createElement('li');
-        li.className = 'project-search-list';
-        li.textContent = project.name;
-        projectList.appendChild(li);
+      });
+    }
+
+    function populateSearchList(){
+      const listElement = document.getElementById("search-list");
+      projects.forEach((project, index) => {
+        const listItem = document.createElement('li');
+        listItem.className = 'searchable-projects';
+        listItem.textContent = project.name;
+        listElement.appendChild(listItem);
       });
     }
 
@@ -234,7 +242,7 @@
     function search_projects(){
       let input = document.getElementById('searchbar').value
       input = input.toLowerCase();
-      let x = document.getElementsByClassName('project-search-list');
+      let x = document.getElementsByClassName('searchable-projects');
 
       for (i = 0; i < x.length; i++) {
         if (!x[i].innerHTML.toLowerCase().includes(input)) {
