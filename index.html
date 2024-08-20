@@ -242,7 +242,7 @@
     fetchProjects();
 
 
-    function searchProjects() {
+    function search_projects() {
             const searchInput = document.getElementById('searchbar').value.toLowerCase();
             const filteredProjects = projects.filter(project => 
                 project.name.toLowerCase().includes(searchInput)
