@@ -243,12 +243,23 @@
 
 
     function search_projects() {
-            const searchInput = document.getElementById('searchbar').value.toLowerCase();
-            const filteredProjects = projects.filter(project => 
-                project.name.toLowerCase().includes(searchInput)
-            );
-            renderProjects(filteredProjects);
+      const searchInput = document.getElementById('searchbar').value.toLowerCase();
+      const filteredProjects = projects.filter(project => 
+        project.name.toLowerCase().includes(searchInput)
+        );
+      renderProjects(filteredProjects);
+
+      let x = document.getElementsByClassName('searchable-projects');
+
+      for (i = 0; i < x.length; i++) {
+        if (!x[i].innerHTML.toLowerCase().includes(searchInput)) {
+          x[i].style.display = "none";
         }
+        else {
+          x[i].style.display = "list-item";
+        }
+      }
+    }
 
   </script>
 </body>
