@@ -67,7 +67,6 @@
         >
       </div>
       <div id="projects"></div>
-      <ul id="search-list"></ul>
     </div>
   </div>
 
@@ -133,7 +132,6 @@
         projects.push(project);
       }
       renderProjects();
-      populateSearchList();
     }
 
     function toggleDetails(index) {
@@ -164,44 +162,38 @@
                 `;
                 projectDiv.onclick = () => toggleDetails(index);
 
-                const detailsDiv = document.createElement('div');
-                detailsDiv.id = `details-${index}`;
-                detailsDiv.className = 'details';
-                detailsDiv.innerHTML = `
-                    <p><strong>Location:</strong> ${project.location}</p>
-                    ${project.videoLink ? `
-                        <div class="video-container">
-                            ${project.videoType === 'youtube' ? 
-                                `<iframe width="560" height="315" src="${project.videoLink}" frameborder="0" allowfullscreen></iframe>` : 
-                                project.videoType === 'googleDrive' ?
-                                    `<iframe src="${project.videoLink}"></iframe>` :
-                                    ''
-                            }
-                        </div>` : ''}
-                    <p><strong>Data Download:</strong> <a href="${project.dataDownloadLink}" target="_blank">Download</a></p>
-                    <p><strong>Purpose:</strong> ${project.purpose}</p>
-                    <p><strong>Research Paper:</strong> <a href="${project.researchPaperLink}" target="_blank">Link</a></p>
-                    <p><strong>Metadata:</strong></p>
-                    <ul class="metadata">
-                        <li>Resolution: ${project.metadata.resolution}</li>
-                        <li>Dates: ${project.metadata.dates}</li>
-                        <li>Size: ${project.metadata.size}</li>
-                        <li>Hardware: ${project.metadata.hardware}</li>
-                    </ul>
-                `;
-                projectsContainer.appendChild(projectDiv);
-                projectsContainer.appendChild(detailsDiv);
-            });
-        }
+        const detailsDiv = document.createElement('div');
+        detailsDiv.id = `details-${index}`;
+        detailsDiv.className = 'details';
+        detailsDiv.innerHTML = `
+          <p><strong>Location:</strong> ${project.location}</p>
+          ${project.videoLink ? `
+            <div class="video-container">
+              ${project.videoType === 'youtube' ? 
+                `<iframe width="560" height="315" src="${project.videoLink}" frameborder="0" allowfullscreen></iframe>` : 
+                project.videoType === 'googleDrive' ?
+                  `<iframe src="${project.videoLink}"></iframe>` :
+                  ''
+              }
+            </div>` : ''}
+          <p><strong>Data Download:</strong> <a href="${project.dataDownloadLink}" target="_blank">Download </a></p>
+          <p><strong>Purpose:</strong> ${project.purpose}</p>
+          <p><strong>Research Paper:</strong> <a href="${project.researchPaperLink}" target="_blank">Link</a></p>
+          <p><strong>Metadata:</strong></p>
+          <ul class="metadata">
+            <li>Resolution: ${project.metadata.resolution}</li>
+            <li>Dates: ${project.metadata.dates}</li>
+            <li>Size: ${project.metadata.size}</li>
+            <li>Hardware: ${project.metadata.hardware}</li>
+          </ul>
+        `;
+        projectsContainer.appendChild(projectDiv);
+        projectsContainer.appendChild(detailsDiv);
 
-    function populateSearchList(){
-      const listElement = document.getElementById("search-list");
-      listElement.innerHTML='';
-      projects.forEach((project, index) => {
-        const listItem = document.createElement('li');
-        listItem.className = 'searchable-projects';
-        listItem.textContent = project.name;
-        listElement.appendChild(listItem);
+        const projectList = document.createElement('li');
+        li.className = 'project-search-list';
+        li.textContent = project.name;
+        projectList.appendChild(li);
       });
     }
 
@@ -242,14 +234,10 @@
     fetchProjects();
 
 
-    function search_projects() {
-      const searchInput = document.getElementById('searchbar').value.toLowerCase();
-      const filteredProjects = projects.filter(project => 
-        project.name.toLowerCase().includes(searchInput)
-        );
-      renderProjects(filteredProjects);
-
-      let x = document.getElementsByClassName('searchable-projects');
+    function search_projects(){
+      let input = document.getElementById('searchbar').value
+      input = input.toLowerCase();
+      let x = document.getElementsByClassName('project-search-list');
 
       for (i = 0; i < x.length; i++) {
         if (!x[i].innerHTML.toLowerCase().includes(searchInput)) {
