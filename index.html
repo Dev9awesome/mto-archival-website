@@ -132,6 +132,7 @@
         projects.push(project);
       }
       renderProjects();
+      populateSearchList();
     }
 
     function toggleDetails(index) {
@@ -190,10 +191,17 @@
         projectsContainer.appendChild(projectDiv);
         projectsContainer.appendChild(detailsDiv);
 
-        const projectList = document.createElement('li');
-        li.className = 'project-search-list';
-        li.textContent = project.name;
-        projectList.appendChild(li);
+        
+      });
+    }
+
+    function populateSearchList(){
+      const listElement = document.getElementById("search-list");
+      projects.forEach((project, index) => {
+        const listItem = document.createElement('li');
+        listItem.className = 'searchable-projects';
+        listItem.textContent = project.name;
+        listElement.appendChild(listItem);
       });
     }
 
@@ -225,10 +233,21 @@
       projectsContainer.style.display = 'none';
     }
 
+    async function testRender(){
+      const gamingFiles = ['project2.json', 'YellowArrow1.json', 'YellowArrow2.json']; // List all your project JSON files here
+      for (const file of gamingFiles) {
+        const response = await fetch(`projects/${file}`);
+        const project = await response.json();
+        let tempProjects = [];
+        tempProjects.push(project);
+      }
+      renderProjects(tempProjects);
+    }
+
     function showProjects() {
       formPage.style.display = 'none';
       projectsContainer.style.display = 'block';
-      renderProjects();
+      testRender();
     }
 
     fetchProjects();
@@ -247,6 +266,8 @@
           x[i].style.display = "list-item";
         }
       }
+
+      //TODO: Make a new list of projects with names that are in the searched name list. Then render the projects
     }
 
   </script>
