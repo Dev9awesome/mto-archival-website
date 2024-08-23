@@ -67,6 +67,7 @@
         >
       </div>
       <div id="projects"></div>
+      <ul id="search-list"></ul>
     </div>
   </div>
 
@@ -234,11 +235,12 @@
     }
 
     async function testRender(){
+      let tempProjects = [];
       const gamingFiles = ['project2.json', 'YellowArrow1.json', 'YellowArrow2.json']; // List all your project JSON files here
       for (const file of gamingFiles) {
         const response = await fetch(`projects/${file}`);
         const project = await response.json();
-        let tempProjects = [];
+        
         tempProjects.push(project);
       }
       renderProjects(tempProjects);
@@ -246,14 +248,16 @@
 
     function showProjects() {
       formPage.style.display = 'none';
-      projectsContainer.style.display = 'block';
       testRender();
+      projectsContainer.style.display = 'block';
     }
 
     fetchProjects();
 
 
     function search_projects(){
+      let realProjectNames = [];
+      let realProjects = [];
       let input = document.getElementById('searchbar').value
       input = input.toLowerCase();
       let x = document.getElementsByClassName('project-search-list');
@@ -264,8 +268,16 @@
         }
         else {
           x[i].style.display = "list-item";
+          realProjectNames.appendChild(x.innerHTML);
         }
       }
+      projects.forEach((project, index) => {
+        if(realProjectNames.includes(project.name)){
+          realProjects.appendChild(project);
+        }
+      });
+
+      renderProjects(realProjects);
 
       //TODO: Make a new list of projects with names that are in the searched name list. Then render the projects
     }
