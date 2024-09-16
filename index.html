@@ -23,7 +23,7 @@
         <a href="download_guide.html">Downloads</a>
         <a href="#">Models</a>
         <a href="#">Notebooks</a>
-        <a href="#">Jobs</a>
+        <a href="globus_test.html">Jobs</a>
       </div>
 
       <script>
@@ -63,7 +63,7 @@
         })
         .then((res) => res.json())
         .then((body) => {
-          documnet.getElementById('contents').textContent = JSON.stringify(body)
+          document.getElementById('contents').textContent = JSON.stringify(body)
        
           const isError = globus.errors.isErrorWellFormed(body);
           if(isError){
@@ -75,6 +75,8 @@
 
 
       </script>
+
+      <div id="contents"></div>
 
       <div>
         <button onclick="showForm()">New</button>
